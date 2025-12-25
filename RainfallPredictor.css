@@ -1,0 +1,334 @@
+.predictor-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+button[type="submit"]:disabled {
+    background-color: #a0c9f1;
+    cursor: not-allowed;
+}
+
+.result-box {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+}
+
+.rain-bg {
+    background-color: #1abc9c; /* Green/Teal for Rain */
+}
+
+.no-rain-bg {
+    background-color: #f39c12; /* Orange for No Rain */
+}
+
+.error-box {
+    background-color: #e74c3c;
+}
+
+.prediction-text {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.probability-text {
+    font-size: 1.2em;
+    margin-left: 10px;
+}
+
+/* --- NEW STYLES FOR BACKGROUND VIDEO --- */
+
+.video-background-container {
+    /* Make this the main container that covers the viewport */
+    position: fixed; /* Use fixed or absolute based on if you want it to scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    z-index: -10; /* Set a low z-index to keep it behind content */
+}
+
+.background-video {
+    /* Ensure the video covers the entire container */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translate(-50%, -50%);
+    /* Optional: If you want the video to look faded or muted */
+    opacity: 0.5; 
+}
+
+.predictor-content-wrapper {
+    /* This style now holds your actual content (form, results, title) */
+    position: relative; 
+    z-index: 10; /* Ensure content is above the video */
+    
+    /* Inherit the old predictor-container styles: */
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.4);/* Semi-transparent white background for readability */
+    font-family: Arial, sans-serif;
+}
+
+/* 4. OPTIONAL: Adjust Result Boxes for readability over the video */
+.result-box {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+    /* NEW: Add a slightly thicker, solid border to help them stand out */
+    border: 1px solid rgba(255, 255, 255, 0.5); 
+}
+
+/* Also, change the main container to the content wrapper to ensure correct placement */
+/* DELETE or RENAME the old .predictor-container style block to match .predictor-content-wrapper */
+
+/* Optional: Make text more readable */
+h1, .input-group label {
+    color: #000; /* Use black or a dark color for better contrast over the video */
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+/* --- RAINDROP LOADER STYLES --- */
+
+/* Container to center the loader */
+.rain-loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure it fills the button height */
+    overflow: hidden;
+}
+
+/* The actual raindrop element */
+.rain-loader-drop {
+    width: 15px;
+    height: 15px;
+    border-radius: 50% 50% 50% 0; /* Creates the teardrop/raindrop shape */
+    background-color: #5ab1ff; /* Light blue color for water */
+    position: relative;
+    transform: rotate(-45deg);
+    
+    /* Apply the animation */
+    animation: rain-fall 1s infinite ease-in-out;
+}
+
+/* The shadow element to give a sense of bouncing/depth */
+.rain-loader-shadow {
+    width: 10px;
+    height: 3px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0; 
+    z-index: 20; /* Ensure shadow is below the drop */
+    
+    /* Apply the animation */
+    animation: shadow-squeeze 1s infinite ease-in-out;
+}
+
+/* --- KEYFRAME ANIMATIONS --- */
+
+@keyframes rain-fall {
+    0% {
+        transform: rotate(-45deg) translateY(-20px); /* Start high */
+        animation-timing-function: ease-out;
+    }
+    40% {
+        transform: rotate(-45deg) translateY(0); /* Hit the ground */
+        width: 15px;
+        height: 15px;
+        animation-timing-function: ease-in;
+    }
+    60% {
+        transform: rotate(-45deg) translateY(-10px); /* Bounce up */
+        animation-timing-function: ease-out;
+    }
+    100% {
+        transform: rotate(-45deg) translateY(-20px); /* Return to start */
+    }
+}
+
+@keyframes shadow-squeeze {
+    0% {
+        transform: scaleX(0.7); /* Shadow is small when high */
+    }
+    40% {
+        transform: scaleX(1.1); /* Shadow is wide when drop lands (squeezes) */
+    }
+    60% {
+        transform: scaleX(0.9); /* Shadow contracts slightly on bounce */
+    }
+    100% {
+        transform: scaleX(0.7);
+    }
+}
+
+/* --- SEMI-CIRCULAR METER STYLES --- */
+
+/* Wrapper to define size and center the whole meter */
+.meter-wrapper {
+    /* Dimensions for a standard gauge */
+    margin: 20px auto 10px;
+    width: 250px; 
+    height: 125px; 
+    overflow: hidden; 
+    position: relative;
+    /* Center the needle at the bottom */
+    display: flex;
+    justify-content: center;
+}
+
+/* The core container for the circle and fill */
+.meter-container {
+    width: 250px;
+    height: 250px; /* Full circle height */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+/* Meter Background (The static part of the gauge, visible in grey) */
+.meter-circle {
+    width: 100%;
+    height: 100%;
+    /* Use a simple grey color for the unused track */
+    border: 15px solid #E0E0E0; /* Light Grey */
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+/* Meter Fill (The part that rotates to indicate value) */
+.meter-fill {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Use a clear color for the fill */
+    border: 15px solid #007bff; /* Bright Blue */
+    border-radius: 50%;
+    box-sizing: border-box;
+    
+    /* Crucial: Hides the bottom half, allows the top to rotate */
+    clip: rect(0, 250px, 125px, 0); 
+    
+    transition: transform 0.8s ease-out; 
+}
+
+/* Meter Needle (The pointer) */
+.meter-needle {
+    position: absolute;
+    bottom: 15px; 
+    left: 50%;
+    width: 2px;
+    height: 110px; 
+    background: #FF0000; /* Red needle */
+    transform-origin: bottom center;
+    transition: transform 0.8s ease-out;
+    z-index: 50; /* Ensure needle is on top of everything */
+    transform: rotate(0deg);
+}
+
+/* 🛑 CRITICAL FIX: Center Cutout and Value Display 🛑 */
+.meter-center {
+    /* This element must be smaller than the inner diameter of the circle */
+    position: absolute;
+    bottom: 0; /* Position at the bottom of the container */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* Adjusted dimensions for the cutout */
+    width: 220px; 
+    height: 110px; 
+    
+    /* Use the same background color as the content wrapper for the cut-out effect */
+    background: rgba(255, 255, 255, 0.4); /* Use the transparent white from .predictor-content-wrapper */
+    
+    border-radius: 50% 50% 0 0; /* Cut out only the bottom half */
+    z-index: 100; /* Ensure this is over the fill and background */
+    
+    /* Center the value text vertically and horizontally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Important for text position */
+    overflow: hidden; 
+}
+
+/* Positioning the value text inside the center cutout */
+.meter-value {
+    position: absolute;
+    /* Position slightly down to be visible in the center area */
+    top: 50%; 
+    transform: translateY(-50%); 
+    
+    color: #333;
+    font-size: 1.4em;
+    font-weight: bold;
+}

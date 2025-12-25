@@ -1,0 +1,90 @@
+.predictor-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+button[type="submit"]:disabled {
+    background-color: #a0c9f1;
+    cursor: not-allowed;
+}
+
+.result-box {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+}
+
+.rain-bg {
+    background-color: #1abc9c; /* Green/Teal for Rain */
+}
+
+.no-rain-bg {
+    background-color: #f39c12; /* Orange for No Rain */
+}
+
+.error-box {
+    background-color: #e74c3c;
+}
+
+.prediction-text {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.probability-text {
+    font-size: 1.2em;
+    margin-left: 10px;
+}
